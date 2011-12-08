@@ -34,7 +34,7 @@
                                                 + '&p[url]=' + encodeURI(options.url)
                                                 + '&&p[images][0]=' + encodeURI(options.imageUrl)
                                                 , 'sharer', popupParameters);
-                shareWindow.focus();
+	            shareWindow.focus();
         	} else if ($(element).hasClass('twitter')) {
 	            shareWindow = window.open('https://twitter.com/share?text=' + encodeURI(options.title)
 	                                        + '&url=' + encodeURI(options.url)
