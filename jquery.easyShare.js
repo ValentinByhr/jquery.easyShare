@@ -27,26 +27,26 @@
             
             $(element).click(function () {
 
-				// Add more sharing options here
-	        	if ($(element).hasClass('facebook')) {
-                	shareWindow = window.open('http://facebook.com/share.php?s=100&p[title]=' + encodeURI(options.title)
+		// Add more sharing options here
+	    	if ($(element).hasClass('facebook')) {
+                    shareWindow = window.open('http://facebook.com/share.php?s=100&p[title]=' + encodeURI(options.title)
                                                 + '&p[summary]=' + encodeURI(options.text)
                                                 + '&p[url]=' + encodeURI(options.url)
                                                 + '&&p[images][0]=' + encodeURI(options.imageUrl)
                                                 , 'sharer', popupParameters);
-                	shareWindow.focus();
-        		} else if ($(element).hasClass('twitter')) {
-	                shareWindow = window.open('https://twitter.com/share?text=' + encodeURI(options.title)
-	                                            + '&url=' + encodeURI(options.url)
-	                                            , 'sharer', popupParameters);
-	                shareWindow.focus();
-				} else if ($(element).hasClass('vkontakte')) {
-		        	shareWindow = window.open('http://vkontakte.ru/share.php?title=' + encodeURI(options.title)
-		                                        + '&description=' + encodeURI(options.text)
-		                                        + '&url=' + encodeURI(options.url)
-		                                        , 'sharer', popupParameters);
-		     	 	shareWindow.focus();
-		        }
+                shareWindow.focus();
+        	} else if ($(element).hasClass('twitter')) {
+	            shareWindow = window.open('https://twitter.com/share?text=' + encodeURI(options.title)
+	                                        + '&url=' + encodeURI(options.url)
+	                                        , 'sharer', popupParameters);
+	            shareWindow.focus();
+		} else if ($(element).hasClass('vkontakte')) {
+		    shareWindow = window.open('http://vkontakte.ru/share.php?title=' + encodeURI(options.title)
+		                                + '&description=' + encodeURI(options.text)
+		                                + '&url=' + encodeURI(options.url)
+		                                , 'sharer', popupParameters);
+		    shareWindow.focus();
+		}
             });
     };
 
