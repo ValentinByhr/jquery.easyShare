@@ -35,7 +35,7 @@
                 shareWindow.focus();
             });
         } else if ($(element).hasClass('twitter')) {
-            $('.share-list').find('.twitter').click(function () {
+            $(element).click(function () {
                 shareWindow = window.open('https://twitter.com/share?text=' + encodeURI(options.title)
                                                 + '&url=' + encodeURI(options.url)
                                                 , 'sharer', popupParameters);
