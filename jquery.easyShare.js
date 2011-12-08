@@ -1,5 +1,25 @@
 (function ($) {
     var pluginName = 'easyShare',
+        shareServices = {
+            facebook: {
+                baseUrl: 'http://facebook.com/share.php?s=100',
+                url: '&p[url]',
+                title: 'p[title]',
+                text: '&p[summary]',
+                imageUrl: '&p[images][0]'
+            },
+            twitter: {
+                baseUrl: 'https://twitter.com/share?',
+                url: '&url',
+                text: 'text'
+            },
+            vkontakte: {
+                baseUrl: 'https://vkontakte.ru/share.php?',
+                url: '&url',
+                title: 'title',
+                text: '&description'
+            }
+        },
         defaults = {
             url: '',
             title: '',
@@ -25,29 +45,28 @@
             element = this.element,
             popupParameters = options.popupParameters + ', width=' + options.popupWidth + ', height=' + options.popupHeight;
             
-            $(element).click(function () {
+        for (serviceName in shareServices) {
+            var service = shareServices[serviceName];
+            if ($(element).hasClass(serviceName)) {
+                $(element).click({service: service}, function (e) {
+                    var popupUrl = '',
+                        service = e.data.service;
 
-		// Add more sharing options here
-	    	if ($(element).hasClass('facebook')) {
-                    shareWindow = window.open('http://facebook.com/share.php?s=100&p[title]=' + encodeURI(options.title)
-                                                + '&p[summary]=' + encodeURI(options.text)
-                                                + '&p[url]=' + encodeURI(options.url)
-                                                + '&&p[images][0]=' + encodeURI(options.imageUrl)
-                                                , 'sharer', popupParameters);
-	            shareWindow.focus();
-        	} else if ($(element).hasClass('twitter')) {
-	            shareWindow = window.open('https://twitter.com/share?text=' + encodeURI(options.title)
-	                                        + '&url=' + encodeURI(options.url)
-	                                        , 'sharer', popupParameters);
-	            shareWindow.focus();
-		} else if ($(element).hasClass('vkontakte')) {
-		    shareWindow = window.open('http://vkontakte.ru/share.php?title=' + encodeURI(options.title)
-		                                + '&description=' + encodeURI(options.text)
-		                                + '&url=' + encodeURI(options.url)
-		                                , 'sharer', popupParameters);
-		    shareWindow.focus();
-		}
-            });
+                    popupUrl = service.baseUrl + service.title + '=' + encodeURI(options.title) + service.url + '=' + encodeURI(options.url);
+
+                    if (service.text) {
+                        popupUrl += service.text + '=' + encodeURI(options.text);
+                    }
+
+                    if (service.imageUrl) {
+                        popupUrl += service.imageUrl + '=' + encodeURI(options.imageUrl);
+                    }
+
+                    shareWindow = window.open(popupUrl, 'sharer', popupParameters);
+                    shareWindow.focus();
+                });
+            }
+        }            
     };
 
     $.fn[pluginName] = function (options) {
